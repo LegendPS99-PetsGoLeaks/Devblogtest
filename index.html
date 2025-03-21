@@ -522,45 +522,37 @@
 
     <script>
         // Theme toggle functionality
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const htmlElement = document.documentElement;
+        // Theme toggle functionality
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = document.getElementById('themeIcon');
+const htmlElement = document.documentElement;
 
-        // Check for saved theme preference or respect OS setting
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            
-            if (savedTheme) {
-                htmlElement.setAttribute('data-theme', savedTheme);
-                updateThemeIcon(savedTheme);
-            } else {
-                // Check if user prefers dark mode
-                const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const initialTheme = prefersDarkMode ? 'dark' : 'light';
-                
-                htmlElement.setAttribute('data-theme', initialTheme);
-                localStorage.setItem('theme', initialTheme);
-                updateThemeIcon(initialTheme);
-            }
-        }
+// Initialize theme - always starts in light mode
+function initTheme() {
+    // Always set light theme by default
+    htmlElement.setAttribute('data-theme', 'light');
+    localStorage.setItem('theme', 'light');
+    updateThemeIcon('light');
+}
 
-        // Update the icon based on current theme
-        function updateThemeIcon(theme) {
-            themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
-        }
+// Update the icon based on current theme
+function updateThemeIcon(theme) {
+    themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+}
 
-        // Toggle theme when button is clicked
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = htmlElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
-            htmlElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
-        });
+// Toggle theme when button is clicked
+themeToggle.addEventListener('click', () => {
+    const currentTheme = htmlElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    htmlElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+});
 
-        // Initialize theme on page load
-        initTheme();
+// Initialize theme on page load
+initTheme();
+
 
         // API endpoint
         const API_URL = 'https://blogapi.biggames.io/api/articles/2016?populate=*';
